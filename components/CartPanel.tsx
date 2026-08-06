@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/format';
+import { effectivePrice } from '@/lib/menu';
 
 export function CartPanel() {
   const { items, isOpen, closeCart, setQty, removeItem, subtotal, totalCount } = useCart();
@@ -43,7 +44,7 @@ export function CartPanel() {
                 </div>
                 <div className="cart-item-info">
                   <h4>{item.name}</h4>
-                  <div className="price">{formatPrice(item.price)}</div>
+                  <div className="price">{formatPrice(effectivePrice(item))}</div>
                   <div className="cart-item-controls">
                     <button
                       className="qty-btn"
@@ -68,7 +69,7 @@ export function CartPanel() {
                     Retirer
                   </button>
                 </div>
-                <div className="cart-item-total">{formatPrice(item.price * item.qty)}</div>
+                <div className="cart-item-total">{formatPrice(effectivePrice(item) * item.qty)}</div>
               </div>
             ))
           )}

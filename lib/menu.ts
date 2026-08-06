@@ -4,10 +4,17 @@ export interface Product {
   id: string;
   name: string;
   desc: string;
+  /** Base price in EUR. */
   price: number;
+  /** Optional promotional price. When set, the base price is shown struck-through. */
+  promoPrice?: number | null;
   image: string;
   category: Category;
   tag?: string;
+  /** Soft toggle: when false the dish is hidden from the public menu (not deleted). */
+  available?: boolean;
+  /** Sort order (lower first). */
+  order?: number;
 }
 
 export const CATEGORY_LABELS: Record<Category | 'all', string> = {
@@ -17,6 +24,23 @@ export const CATEGORY_LABELS: Record<Category | 'all', string> = {
   sides: 'Sides & Desserts',
   boissons: 'Boissons',
 };
+
+export const CATEGORIES: (Category | 'all')[] = ['all', 'sandwichs', 'burgers', 'sides', 'boissons'];
+
+/** True when a promotional price is set and lower than the base price. */
+export const hasPromo = (p: Product): boolean =>
+  p.promoPrice != null && p.promoPrice > 0 && p.promoPrice < p.price;
+
+/** The price the customer actually pays. */
+export const effectivePrice = (p: Product): number =>
+  hasPromo(p) ? (p.promoPrice as number) : p.price;
+
+/** Integer percent off, e.g. 18 for "-18 %". Returns 0 when there is no promo. */
+export const promoPercent = (p: Product): number =>
+  hasPromo(p) ? Math.round((1 - (p.promoPrice as number) / p.price) * 100) : 0;
+
+/** Whether the dish should be shown to customers. */
+export const isAvailable = (p: Product): boolean => p.available !== false;
 
 export const MENU: Product[] = [
   // ---- Sandwichs au four ----
@@ -131,7 +155,5 @@ export const MENU: Product[] = [
   },
 ];
 
-export const countByCategory = (cat: Category | 'all'): number =>
-  cat === 'all' ? MENU.length : MENU.filter((p) => p.category === cat).length;
-
-export const CATEGORIES: (Category | 'all')[] = ['all', 'sandwichs', 'burgers', 'sides', 'boissons'];
+export const countByCategory = (cat: Category | 'all', list: Product[] = MENU): number =>
+  cat === 'all' ? list.length : list.filter((p) => p.category === cat).length;

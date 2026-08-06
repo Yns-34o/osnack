@@ -2,7 +2,18 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { CATEGORIES, CATEGORY_LABELS, MENU, countByCategory, type Category } from '@/lib/menu';
+import {
+  CATEGORIES,
+  CATEGORY_LABELS,
+  countByCategory,
+  effectivePrice,
+  hasPromo,
+  isAvailable,
+  promoPercent,
+  type Category,
+  type Product,
+} from '@/lib/menu';
+import { useProducts } from '@/lib/useProducts';
 import { formatPrice } from '@/lib/format';
 import { AddToCartButton } from './AddToCartButton';
 import { Reveal } from './Reveal';
@@ -11,10 +22,14 @@ type Filter = Category | 'all';
 
 export function Menu() {
   const [filter, setFilter] = useState<Filter>('all');
+  const { products } = useProducts();
+
+  // Hide dishes the admin has toggled off (soft remove). Deletion is permanent.
+  const visible = useMemo(() => products.filter(isAvailable), [products]);
 
   const filtered = useMemo(
-    () => (filter === 'all' ? MENU : MENU.filter((p) => p.category === filter)),
-    [filter],
+    () => (filter === 'all' ? visible : visible.filter((p) => p.category === filter)),
+    [filter, visible],
   );
 
   return (
@@ -39,10 +54,9 @@ export function Menu() {
             <button
               key={cat}
               className={`filter-btn ${filter === cat ? 'active' : ''}`}
-              data-cursor-hover
               onClick={() => setFilter(cat)}
             >
-              {CATEGORY_LABELS[cat]} <span className="count">({countByCategory(cat)})</span>
+              {CATEGORY_LABELS[cat]} <span className="count">({countByCategory(cat, visible)})</span>
             </button>
           ))}
         </div>
@@ -57,8 +71,9 @@ export function Menu() {
   );
 }
 
-function MenuCard({ product }: { product: (typeof MENU)[number] }) {
+function MenuCard({ product }: { product: Product }) {
   const ref = useRef<HTMLDivElement>(null);
+  const promo = hasPromo(product);
 
   useEffect(() => {
     const el = ref.current;
@@ -88,14 +103,19 @@ function MenuCard({ product }: { product: (typeof MENU)[number] }) {
           sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
         />
         {product.tag && <div className="menu-card-tag">{product.tag}</div>}
+        {promo && (
+          <div className="menu-card-tag promo">-{promoPercent(product)} %</div>
+        )}
       </div>
       <div className="menu-card-body">
         <h3 className="menu-card-name">{product.name}</h3>
         <p className="menu-card-desc">{product.desc}</p>
         <div className="menu-card-footer">
-          <div className="menu-card-price">
-            {formatPrice(product.price).replace(' €', '')}
-            <span className="currency">€</span>
+          <div className={`menu-card-price ${promo ? 'is-promo' : ''}`}>
+            {promo && <span className="price-old">{formatPrice(product.price)}</span>}
+            <span className="price-now">
+              {formatPrice(effectivePrice(product))}
+            </span>
           </div>
           <AddToCartButton product={product} />
         </div>

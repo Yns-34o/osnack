@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from 'react';
 import type { Product } from '@/lib/menu';
+import { effectivePrice } from '@/lib/menu';
 
 export interface CartLine extends Product {
   qty: number;
@@ -107,7 +108,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [items],
   );
   const subtotal = useMemo(
-    () => items.reduce((sum, i) => sum + i.qty * i.price, 0),
+    () => items.reduce((sum, i) => sum + i.qty * effectivePrice(i), 0),
     [items],
   );
 
