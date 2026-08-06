@@ -30,13 +30,13 @@ npm run start
 
 ```
 app/
-  layout.tsx        # fonts, metadata, providers, curseur, particules
+  layout.tsx        # fonts, metadata, providers, particules
   page.tsx          # composition de la page
   globals.css       # tout le style (variables de polices next/font)
 components/
   Nav, Hero, Marquee, Story, Menu, Reviews, Footer
   CartPanel, CartFloating, Toast
-  CustomCursor, ParticleField, SmoothScrollProvider
+  ParticleField, SmoothScrollProvider
   Reveal, StarRating, AddToCartButton
 context/
   CartContext.tsx   # état panier (add/remove/qty), persistance localStorage
