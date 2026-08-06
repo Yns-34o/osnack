@@ -29,7 +29,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "O'Snack Torcy — Sandwichs au four & Burgers gourmands",
   description:
-    "O'Snack Torcy — Sandwichs au four & Burgers gourmands au cœur de Torcy. 57 Rue de Paris, 77200 Torcy. Ouvert 7j/7.",
+    "O'Snack Torcy — Sandwichs au four & Burgers gourmands au cœur de Torcy. 57 Rue de Paris, 77220 Torcy. Ouvert 7j/7.",
 };
 
 export default function RootLayout({

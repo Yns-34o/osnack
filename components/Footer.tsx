@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export function Footer() {
   return (
     <footer className="footer" id="contact">
@@ -38,14 +40,14 @@ export function Footer() {
           <ul>
             <li>
               <a
-                href="https://maps.google.com/?q=57+Rue+de+Paris+77200+Torcy"
+                href="https://maps.google.com/?q=57+Rue+de+Paris+77220+Torcy"
                 target="_blank"
                 rel="noreferrer"
                 data-cursor-hover
               >
                 57 Rue de Paris
                 <br />
-                77200 Torcy
+                77220 Torcy
               </a>
             </li>
             <li>
@@ -53,7 +55,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href="https://maps.google.com/?q=57+Rue+de+Paris+77200+Torcy"
+                href="https://maps.google.com/?q=57+Rue+de+Paris+77220+Torcy"
                 target="_blank"
                 rel="noreferrer"
                 className="footer-map-link"
@@ -93,9 +95,10 @@ export function Footer() {
       <div className="footer-bottom">
         <div>© 2025 O&apos;Snack Torcy — Tous droits réservés</div>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
-          <a href="#" data-cursor-hover>Mentions légales</a>
-          <a href="#" data-cursor-hover>CGV</a>
-          <a href="#" data-cursor-hover>Confidentialité</a>
+          <Link href="/mentions-legales" data-cursor-hover>Mentions légales</Link>
+          <Link href="/cgv" data-cursor-hover>CGV</Link>
+          <Link href="/confidentialite" data-cursor-hover>Confidentialité</Link>
+          <Link href="/cookies" data-cursor-hover>Cookies</Link>
         </div>
       </div>
     </footer>
