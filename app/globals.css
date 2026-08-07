@@ -205,9 +205,20 @@
   .floating-nav-phone svg { width: 16px; height: 16px; }
 
   @media (max-width: 768px) {
-    .floating-nav { gap: 0; padding: 0.4rem 0.4rem 0.4rem 1.1rem; top: 0.75rem; }
+    .floating-nav { gap: 0; padding: 0.35rem 0.4rem 0.35rem 1.1rem; top: 0.75rem; }
     .floating-nav-links { display: none; }
     .floating-nav-brand { font-size: 0.9rem; }
+
+    /* Bouton « Commander » rééquilibré : on réduit sa hauteur, son padding et
+       sa police pour qu'il visuellement cohérent avec le brand « O'SNACK. ». */
+    .floating-nav-phone {
+      height: 30px;
+      padding: 0 0.75rem 0 0.6rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      gap: 0.35rem;
+    }
+    .floating-nav-phone svg { width: 12px; height: 12px; }
   }
 
   /* ============ HERO ============ */
@@ -370,9 +381,51 @@
   }
 
   @media (max-width: 768px) {
-    .hero-content { padding: 0 1.25rem 4rem; }
+    /* Aération générale : on remonte un peu le bloc et on gagne de l'air en bas. */
+    .hero-content { padding: 0 1.4rem 5rem; }
     .hero-meta { display: none; }
     .hero-scroll { display: none; }
+
+    /* Hiérarchie typographique allégée pour la lecture sur petit écran. */
+    .hero-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      gap: 0.6rem;
+      margin-bottom: 1.1rem;
+    }
+    .hero-eyebrow::before { width: 22px; }
+
+    .hero-title { margin-bottom: 1.4rem; }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-rule { margin-bottom: 1.3rem; }
+
+    .hero-desc {
+      font-size: 0.86rem;
+      line-height: 1.65;
+      opacity: 0.95;        /* + lisible que le 0.85 desktop */
+      max-width: 100%;
+      margin-bottom: 2.25rem;
+    }
+
+    /* On ne garde que les 2 CTA principales sur mobile : Appeler + Voir le menu.
+       Uber Eats & Deliveroo restent accessibles plus bas (footer). */
+    .hero-ctas .order-btn--uber,
+    .hero-ctas .order-btn--deliveroo { display: none; }
+
+    .hero-ctas { flex-direction: column; gap: 0.7rem; }
+    .hero-ctas .order-btn,
+    .hero-ctas .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 0.95rem 1rem;
+      font-size: 0.74rem;
+    }
   }
 
   /* ============ MARQUEE ============ */
