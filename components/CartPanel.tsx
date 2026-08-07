@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/format';
 import { effectivePrice } from '@/lib/menu';
+import { LINKS } from '@/lib/links';
 
 export function CartPanel() {
   const { items, isOpen, closeCart, setQty, removeItem, subtotal, totalCount } = useCart();
@@ -88,8 +89,12 @@ export function CartPanel() {
             <span className="label">Total</span>
             <span className="value" id="cartTotal">{formatPrice(subtotal)}</span>
           </div>
-          <button className="cart-checkout" data-cursor-hover>
-            Commander <span className="btn-arrow">→</span>
+          <button
+            className="cart-checkout"
+            data-cursor-hover
+            onClick={() => window.open(LINKS.uberEats, '_blank', 'noopener,noreferrer')}
+          >
+            Commander sur Uber Eats <span className="btn-arrow">→</span>
           </button>
         </div>
       </aside>

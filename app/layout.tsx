@@ -47,6 +47,11 @@ export default function RootLayout({
               <stop offset="50%" stopColor="#fff" />
               <stop offset="50%" stopColor="rgba(255,255,255,0.2)" />
             </linearGradient>
+            {/* Variante dorée pour les étoiles sur fond blanc (cartes d'avis) */}
+            <linearGradient id="half-fill-gold" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="50%" stopColor="#F5A623" />
+              <stop offset="50%" stopColor="rgba(0,0,0,0.14)" />
+            </linearGradient>
           </defs>
         </svg>
 

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { LINKS } from '@/lib/links';
+import { UberEatsLogo, DeliverooLogo } from './BrandLogos';
 
 const HERO_IMG =
   'https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=1600&auto=format&fit=crop&q=80';
@@ -57,8 +59,27 @@ export function Hero() {
           généreuses — le goût du vrai, sans aucun compromis.
         </p>
         <div className="hero-ctas">
-          <a href="#menu" className="btn btn-primary" data-cursor-hover>
-            Commander en ligne <span className="btn-arrow">→</span>
+          <a
+            href={LINKS.uberEats}
+            target="_blank"
+            rel="noreferrer"
+            className="order-btn order-btn--uber"
+            data-cursor-hover
+          >
+            <UberEatsLogo className="order-btn-logo" />
+            <span>Commander</span>
+            <span className="btn-arrow">→</span>
+          </a>
+          <a
+            href={LINKS.deliveroo}
+            target="_blank"
+            rel="noreferrer"
+            className="order-btn order-btn--deliveroo"
+            data-cursor-hover
+          >
+            <DeliverooLogo className="order-btn-logo" />
+            <span>Deliveroo</span>
+            <span className="btn-arrow">→</span>
           </a>
           <a href="#menu" className="btn" data-cursor-hover>
             Voir le menu <span className="btn-arrow">→</span>

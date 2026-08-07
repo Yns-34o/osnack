@@ -3,6 +3,7 @@
 import { REVIEWS } from '@/lib/reviews';
 import { StarRating } from './StarRating';
 import { Reveal } from './Reveal';
+import { GoogleGLogo } from './BrandLogos';
 
 export function Reviews() {
   return (
@@ -47,7 +48,10 @@ export function Reviews() {
             <div className="reviews-meta">
               Basé sur <strong>+250 avis</strong> vérifiés
               <br />
-              Note Google · TheFork · Uber Eats
+              <span className="reviews-meta-google">
+                <GoogleGLogo className="reviews-google-logo" />
+                Note Google · TheFork · Uber Eats
+              </span>
               <br />
               Dernière mise à jour : <strong>ce mois-ci</strong>
             </div>
@@ -58,13 +62,16 @@ export function Reviews() {
           {REVIEWS.map((review) => (
             <Reveal className="" key={review.id} as="div">
               <article className="review-card">
-                <StarRating rating={review.rating} />
+                <div className="review-top">
+                  <StarRating rating={review.rating} />
+                  <GoogleGLogo className="review-google-logo" />
+                </div>
                 <p className="review-text">{review.text}</p>
                 <div className="review-author">
                   <div className="review-avatar">{review.name.charAt(0)}</div>
                   <div>
                     <div className="review-name">{review.name}</div>
-                    <div className="review-date">{review.date}</div>
+                    <div className="review-date">Avis Google · {review.date}</div>
                   </div>
                 </div>
               </article>

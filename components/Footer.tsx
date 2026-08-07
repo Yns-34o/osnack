@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { LINKS } from '@/lib/links';
+import { UberEatsLogo, DeliverooLogo } from './BrandLogos';
 
 export function Footer() {
   return (
@@ -15,23 +17,44 @@ export function Footer() {
             Torcy, 7 jours sur 7.
           </p>
           <div className="footer-social">
-            <a href="#" aria-label="Instagram" data-cursor-hover>
+            <a href={LINKS.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" data-cursor-hover>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <rect x="3" y="3" width="18" height="18" rx="5" />
                 <circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
               </svg>
             </a>
-            <a href="#" aria-label="Facebook" data-cursor-hover>
+            <a href={LINKS.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" data-cursor-hover>
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
               </svg>
             </a>
-            <a href="https://www.ubereats.com" target="_blank" rel="noreferrer" aria-label="Uber Eats" data-cursor-hover>
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M2 9.5h6.5V7H2v2.5zm0 5h4V12H2v2.5zm0 5h4V17H2v2.5zM14.5 7H12v10h2.5v-4H17v-2.5h-2.5V7zm5 0H17v10h2.5v-4H22v-2.5h-2.5V7z" />
-              </svg>
-            </a>
+          </div>
+          <div className="footer-order">
+            <span className="footer-order-label">Commander en ligne</span>
+            <div className="footer-order-row">
+              <a
+                href={LINKS.uberEats}
+                target="_blank"
+                rel="noreferrer"
+                className="footer-order-btn footer-order-btn--uber"
+                aria-label="Commander sur Uber Eats"
+                data-cursor-hover
+              >
+                <UberEatsLogo className="footer-order-logo" />
+              </a>
+              <a
+                href={LINKS.deliveroo}
+                target="_blank"
+                rel="noreferrer"
+                className="footer-order-btn footer-order-btn--deliveroo"
+                aria-label="Commander sur Deliveroo"
+                data-cursor-hover
+              >
+                <DeliverooLogo className="footer-order-logo" />
+                <span>Deliveroo</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -40,7 +63,7 @@ export function Footer() {
           <ul>
             <li>
               <a
-                href="https://maps.google.com/?q=57+Rue+de+Paris+77220+Torcy"
+                href={LINKS.addressQuery}
                 target="_blank"
                 rel="noreferrer"
                 data-cursor-hover
@@ -51,11 +74,11 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="tel:0988086125" data-cursor-hover>09 88 08 61 25</a>
+              <a href={LINKS.phoneHref} data-cursor-hover>09 88 08 61 25</a>
             </li>
             <li>
               <a
-                href="https://maps.google.com/?q=57+Rue+de+Paris+77220+Torcy"
+                href={LINKS.addressQuery}
                 target="_blank"
                 rel="noreferrer"
                 className="footer-map-link"
@@ -88,6 +111,16 @@ export function Footer() {
             <li><a href="#contact" data-cursor-hover>Nous Trouver</a></li>
           </ul>
         </div>
+      </div>
+
+      <div className="footer-map">
+        <iframe
+          title="Localisation d'O'Snack Torcy sur Google Maps"
+          src={LINKS.mapsEmbed}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
       </div>
 
       <div className="footer-huge">O&apos;SNACK</div>
