@@ -13,7 +13,7 @@ const BLACK_CELLS = [
   { r: 0, c: 5 }, { r: 2, c: 7 }, { r: 4, c: 1 }, { r: 5, c: 6 },
 ];
 const HERO_IMG =
-  'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1600&auto=format&fit=crop&q=80';
+  'https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=1600&auto=format&fit=crop&q=80';
 
 export function Hero() {
   const gridRef = useRef<HTMLDivElement>(null);
