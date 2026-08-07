@@ -43,14 +43,18 @@ export function Hero() {
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
-        <div className="hero-eyebrow">57 Rue de Paris — Torcy · Depuis le premier jour</div>
+        <div className="hero-eyebrow">Sandwichs au four · Burgers maison · Torcy</div>
         <h1 className="hero-title" ref={titleRef}>
           <span className="line"><span>O&apos;SNACK</span></span>
           <span className="line"><span>TORCY</span></span>
         </h1>
         <p className="hero-subtitle">
-          Sandwichs au four &amp; burgers gourmands. Le goût authentique au cœur de
-          Torcy — préparé minute, produits frais, générosité garantie.
+          Préparé minute. Dévoré en un instant.
+        </p>
+        <p className="hero-desc">
+          Produits frais sélectionnés chaque matin, pains dorés au four, viandes
+          savoureuses et sauces maison. Une qualité honnête, des portions
+          généreuses — le goût du vrai, sans aucun compromis.
         </p>
         <div className="hero-ctas">
           <a href="#menu" className="btn btn-primary" data-cursor-hover>

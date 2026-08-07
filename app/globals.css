@@ -267,7 +267,8 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-size: cover;
+    background-color: #000;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     transform-origin: center;
@@ -327,8 +328,16 @@
     font-size: 1.1rem;
     color: var(--text-soft);
     max-width: 540px;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    max-width: 520px;
     margin-bottom: 2.5rem;
     line-height: 1.6;
+    opacity: 0.85;
   }
   .hero-ctas {
     display: flex; gap: 1rem; flex-wrap: wrap;
