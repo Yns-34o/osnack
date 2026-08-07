@@ -139,6 +139,123 @@
     .nav-phone { display: none; }
   }
 
+  /* ============ FLOATING NAV (pastille flottante, toujours visible) ============ */
+  .floating-nav {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+    animation: floating-nav-in 0.7s var(--ease-quiet) both;
+  }
+  @keyframes floating-nav-in {
+    from { opacity: 0; transform: translateX(-50%) translateY(-130%); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .floating-nav-brand {
+    font-family: var(--font-montserrat), sans-serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .floating-nav-brand .dot {
+    width: 5px;
+    height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .floating-nav-links {
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+  }
+  .floating-nav-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.3s var(--ease-quiet);
+  }
+  .floating-nav-links a:hover { color: #fff; }
+  .floating-nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    transition: width 0.35s var(--ease-quiet);
+  }
+  .floating-nav-links a:hover::after { width: 100%; }
+  .floating-nav-cart {
+    background: #fff;
+    color: #000;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease-quiet);
+  }
+  .floating-nav-cart:hover { transform: scale(1.06); }
+  .floating-nav-cart svg { width: 18px; height: 18px; }
+  .floating-nav-cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #000;
+    color: #fff;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    font-family: var(--font-ibm), monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.3s var(--ease-quiet), transform 0.3s var(--ease-quiet);
+  }
+  .floating-nav-cart-badge.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (max-width: 768px) {
+    .floating-nav { gap: 0; padding: 0.4rem 0.4rem 0.4rem 1.1rem; top: 0.75rem; }
+    .floating-nav-links { display: none; }
+    .floating-nav-brand { font-size: 0.9rem; }
+  }
+
   /* ============ HERO ============ */
   .hero {
     position: relative;

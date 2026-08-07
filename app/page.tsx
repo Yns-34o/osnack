@@ -1,4 +1,4 @@
-import { Nav } from '@/components/Nav';
+import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
 import { Story } from '@/components/Story';
@@ -12,7 +12,7 @@ import { Toast } from '@/components/Toast';
 export default function Home() {
   return (
     <>
-      <Nav />
+      <FloatingNav />
       <main>
         <Hero />
         <Marquee />
