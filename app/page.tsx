@@ -2,7 +2,7 @@ import { FloatingNav } from '@/components/FloatingNav';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
 import { Story } from '@/components/Story';
-import { Menu } from '@/components/Menu';
+import { BestSellers } from '@/components/BestSellers';
 import { Reviews } from '@/components/Reviews';
 import { Footer } from '@/components/Footer';
 
@@ -14,7 +14,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Story />
-        <Menu />
+        <BestSellers />
         <Reviews />
       </main>
       <Footer />

@@ -42,6 +42,7 @@ export function ProductForm({ initial, onClose }: Props) {
   const [tag, setTag] = useState(initial?.tag ?? '');
   const [note, setNote] = useState(initial?.note ?? '');
   const [available, setAvailable] = useState(initial?.available !== false);
+  const [bestseller, setBestseller] = useState(initial?.bestseller === true);
   const [order, setOrder] = useState(initial?.order != null ? String(initial.order) : '');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -75,6 +76,7 @@ export function ProductForm({ initial, onClose }: Props) {
       tag: tag.trim() || undefined,
       note: note.trim() || undefined,
       available,
+      bestseller,
       order: order.trim() === '' ? undefined : Number(order),
     };
 
@@ -225,6 +227,15 @@ export function ProductForm({ initial, onClose }: Props) {
                 onChange={(e) => setAvailable(e.target.checked)}
               />
               <span>Visible sur le site</span>
+            </label>
+
+            <label className="admin-check">
+              <input
+                type="checkbox"
+                checked={bestseller}
+                onChange={(e) => setBestseller(e.target.checked)}
+              />
+              <span>★ Best Seller (page d&apos;accueil)</span>
             </label>
           </div>
 

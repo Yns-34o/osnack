@@ -105,10 +105,11 @@ export function Footer() {
         <div className="footer-col">
           <h4>Navigation</h4>
           <ul>
-            <li><a href="#story" data-cursor-hover>Le Concept</a></li>
-            <li><a href="#menu" data-cursor-hover>Le Menu</a></li>
-            <li><a href="#reviews" data-cursor-hover>Avis Clients</a></li>
-            <li><a href="#contact" data-cursor-hover>Nous Trouver</a></li>
+            <li><Link href="/#story" data-cursor-hover>Le Concept</Link></li>
+            <li><Link href="/carte" data-cursor-hover>La Carte</Link></li>
+            <li><Link href="/histoire" data-cursor-hover>Histoire</Link></li>
+            <li><Link href="/#reviews" data-cursor-hover>Avis Clients</Link></li>
+            <li><Link href="/#contact" data-cursor-hover>Nous Trouver</Link></li>
           </ul>
         </div>
       </div>

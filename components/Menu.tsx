@@ -99,7 +99,7 @@ export function Menu() {
   );
 }
 
-function MenuCard({ product }: { product: Product }) {
+export function MenuCard({ product }: { product: Product }) {
   const ref = useRef<HTMLDivElement>(null);
   const promo = hasPromo(product);
   const hasMenu = hasMenuPrice(product);

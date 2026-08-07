@@ -14,6 +14,7 @@ import {
   effectivePrice,
   hasPromo,
   isAvailable,
+  isBestSeller,
   promoPercent,
   type Product,
 } from '@/lib/menu';
@@ -164,6 +165,17 @@ function Dashboard({ user }: { user: User }) {
     }
   }
 
+  async function handleToggleBest(p: Product) {
+    const next = !isBestSeller(p);
+    try {
+      await updateProduct(p.id, { bestseller: next });
+      flash(next ? `${p.name} mis en Best Seller.` : `${p.name} retiré des Best Sellers.`);
+    } catch (err) {
+      console.error(err);
+      flash('Échec de la mise à jour.');
+    }
+  }
+
   async function handleSeed() {
     if (
       !window.confirm(
@@ -187,6 +199,7 @@ function Dashboard({ user }: { user: User }) {
 
   const promoCount = products.filter(hasPromo).length;
   const hiddenCount = products.filter((p) => !isAvailable(p)).length;
+  const bestCount = products.filter(isBestSeller).length;
 
   return (
     <Shell>
@@ -217,6 +230,7 @@ function Dashboard({ user }: { user: User }) {
 
       <div className="admin-stats">
         <Stat label="Plats" value={products.length} />
+        <Stat label="Best sellers" value={bestCount} />
         <Stat label="En promotion" value={promoCount} />
         <Stat label="Masqués" value={hiddenCount} />
       </div>
@@ -229,6 +243,7 @@ function Dashboard({ user }: { user: User }) {
               <th>Catégorie</th>
               <th>Prix</th>
               <th>Promo</th>
+              <th>Top</th>
               <th>État</th>
               <th>Actions</th>
             </tr>
@@ -266,6 +281,15 @@ function Dashboard({ user }: { user: User }) {
                 </td>
                 <td>
                   <button
+                    className={`admin-pill ${isBestSeller(p) ? 'on' : 'off'}`}
+                    onClick={() => handleToggleBest(p)}
+                    title="Mettre en / retirer des Best Sellers (page d'accueil)"
+                  >
+                    {isBestSeller(p) ? '★ Top' : 'Non'}
+                  </button>
+                </td>
+                <td>
+                  <button
                     className={`admin-pill ${isAvailable(p) ? 'on' : 'off'}`}
                     onClick={() => handleToggle(p)}
                     title="Afficher / masquer sur le site"
@@ -289,7 +313,7 @@ function Dashboard({ user }: { user: User }) {
             ))}
             {products.length === 0 && (
               <tr>
-                <td colSpan={6} className="admin-empty">
+                <td colSpan={7} className="admin-empty">
                   Aucun plat. Clique sur « Importer le menu » pour démarrer, ou
                   « + Ajouter un plat ».
                 </td>

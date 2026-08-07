@@ -24,6 +24,8 @@ export interface Product {
   note?: string;
   /** Soft toggle: when false the dish is hidden from the public menu (not deleted). */
   available?: boolean;
+  /** Soft toggle: when true the dish is promoted as a "Best Seller" on the vitrine. */
+  bestseller?: boolean;
   /** Sort order (lower first). */
   order?: number;
 }
@@ -86,6 +88,55 @@ export const promoPercent = (p: Product): number =>
 /** Whether the dish should be shown to customers. */
 export const isAvailable = (p: Product): boolean => p.available !== false;
 
+/** Whether the dish is flagged as a Best Seller on the vitrine. */
+export const isBestSeller = (p: Product): boolean => p.bestseller === true;
+
+/**
+ * Stable ids used as Best-Seller fallback. Guarantees the vitrine always shows
+ * 3 highlights even before the admin toggles anything, or when the live
+ * Firestore data does not yet carry the `bestseller` field.
+ */
+export const BEST_SELLER_FALLBACK_IDS = ['grec', 'menu-supreme', 'g-original'];
+
+/**
+ * Pick the Best Sellers to feature on the vitrine.
+ * Priority: available items flagged `bestseller === true` (sorted by `order`),
+ * then the fallback ids if present, then any remaining item by `order`.
+ * The admin can override at any time by toggling `bestseller`.
+ */
+export const selectBestSellers = (list: Product[], count = 3): Product[] => {
+  const byOrder = (a: Product, b: Product) =>
+    (a.order ?? 9999) - (b.order ?? 9999) || a.name.localeCompare(b.name, 'fr');
+
+  const flagged = list.filter((p) => isAvailable(p) && isBestSeller(p)).sort(byOrder);
+  if (flagged.length >= count) return flagged.slice(0, count);
+
+  const chosen = new Set(flagged.map((p) => p.id));
+  const pool = list.filter((p) => isAvailable(p) && !chosen.has(p.id));
+
+  // Top up with the canonical fallback ids when available.
+  const byId = new Map(pool.map((p) => [p.id, p] as const));
+  const merged = [...flagged];
+  for (const id of BEST_SELLER_FALLBACK_IDS) {
+    if (merged.length >= count) break;
+    const item = byId.get(id);
+    if (item) {
+      merged.push(item);
+      chosen.add(item.id);
+    }
+  }
+
+  // Last resort: fill with whatever is available, by order.
+  if (merged.length < count) {
+    for (const item of pool.filter((p) => !chosen.has(p.id)).sort(byOrder)) {
+      if (merged.length >= count) break;
+      merged.push(item);
+    }
+  }
+
+  return merged.slice(0, count);
+};
+
 const img = (id: string): string =>
   `https://images.unsplash.com/photo-${id}?w=800&auto=format&fit=crop&q=80`;
 
@@ -130,6 +181,7 @@ export const MENU: Product[] = [
     image: IMG.kebab1,
     category: 'sandwichs',
     tag: 'Signature',
+    bestseller: true,
     order: 11,
   },
   {
@@ -472,6 +524,7 @@ export const MENU: Product[] = [
     image: IMG.burger2,
     category: 'burgers',
     tag: 'Gourmet',
+    bestseller: true,
     order: 141,
   },
   {
@@ -538,6 +591,7 @@ export const MENU: Product[] = [
     image: IMG.burger2,
     category: 'menus',
     tag: 'Le meilleur',
+    bestseller: true,
     order: 203,
   },
 

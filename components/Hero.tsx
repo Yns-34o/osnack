@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { LINKS } from '@/lib/links';
 import { UberEatsLogo, DeliverooLogo } from './BrandLogos';
@@ -94,9 +95,9 @@ export function Hero() {
             <span>Deliveroo</span>
             <span className="btn-arrow">→</span>
           </a>
-          <a href="#menu" className="btn" data-cursor-hover>
-            Voir le menu <span className="btn-arrow">→</span>
-          </a>
+          <Link href="/carte" className="btn" data-cursor-hover>
+            Voir la carte <span className="btn-arrow">→</span>
+          </Link>
         </div>
       </div>
 
