@@ -5,8 +5,9 @@ import { gsap } from 'gsap';
 import { LINKS } from '@/lib/links';
 import { UberEatsLogo, DeliverooLogo } from './BrandLogos';
 
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=1600&auto=format&fit=crop&q=80';
+// Image de fond du hero : burger déconstruit (photo verticale affichée en
+// entier via background-size: contain, sans zoom/recadrage).
+const HERO_IMG = '/hero-burger.png';
 
 export function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
@@ -15,10 +16,10 @@ export function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (bgRef.current) {
+        // Simple fondu : pas de zoom, l'image reste visible en entier.
         gsap.from(bgRef.current, {
-          scale: 1.15,
           opacity: 0,
-          duration: 1.6,
+          duration: 1.4,
           ease: 'expo.out',
         });
       }
@@ -53,6 +54,7 @@ export function Hero() {
         <p className="hero-subtitle">
           Préparé minute. Dévoré en un instant.
         </p>
+        <div className="hero-rule" aria-hidden />
         <p className="hero-desc">
           Produits frais sélectionnés chaque matin, pains dorés au four, viandes
           savoureuses et sauces maison. Une qualité honnête, des portions

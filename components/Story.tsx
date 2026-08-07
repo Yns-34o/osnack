@@ -16,7 +16,7 @@ const IMAGES = [
     label: '01 — Préparation',
   },
   {
-    src: 'https://images.unsplash.com/photo-1556909114-44e3e9399a2c?w=800&auto=format&fit=crop&q=80',
+    src: 'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=800&auto=format&fit=crop&q=80',
     alt: 'Ingrédients frais',
     label: '02 — Ingrédients',
   },
