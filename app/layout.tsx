@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Montserrat, Inter, IBM_Plex_Mono } from 'next/font/google';
-import { CartProvider } from '@/context/CartContext';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
 import { ParticleFieldClient } from '@/components/ParticleFieldClient';
 import './globals.css';
@@ -55,12 +54,10 @@ export default function RootLayout({
           </defs>
         </svg>
 
-        <CartProvider>
-          <SmoothScrollProvider>
-            <ParticleFieldClient />
-            {children}
-          </SmoothScrollProvider>
-        </CartProvider>
+        <SmoothScrollProvider>
+          <ParticleFieldClient />
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );

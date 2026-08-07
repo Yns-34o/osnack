@@ -1,6 +1,6 @@
 'use client';
 
-import { useCart } from '@/context/CartContext';
+import { LINKS } from '@/lib/links';
 
 // Barre de navigation flottante (pastille centrée, toujours visible au scroll).
 // Reprend l'esthétique "FloatingNav" (pastille arrondie en haut centrée) adaptée
@@ -13,8 +13,6 @@ const NAV_ITEMS = [
 ];
 
 export function FloatingNav() {
-  const { totalCount, openCart } = useCart();
-
   return (
     <nav className="floating-nav" id="floating-nav" aria-label="Navigation principale">
       <a href="#hero" className="floating-nav-brand" data-cursor-hover>
@@ -31,19 +29,17 @@ export function FloatingNav() {
         ))}
       </ul>
 
-      <button
-        className="floating-nav-cart"
-        onClick={openCart}
+      <a
+        href={LINKS.phoneHref}
+        className="floating-nav-phone"
         data-cursor-hover
-        aria-label="Ouvrir le panier"
+        aria-label={`Appeler ${LINKS.phone}`}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-          <path d="M3 3h2l.4 2M7 13h10l3-7H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
         </svg>
-        <span className={`floating-nav-cart-badge ${totalCount > 0 ? 'active' : ''}`}>
-          {totalCount}
-        </span>
-      </button>
+        <span>Commander</span>
+      </a>
     </nav>
   );
 }

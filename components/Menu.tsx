@@ -17,7 +17,7 @@ import {
 } from '@/lib/menu';
 import { useProducts } from '@/lib/useProducts';
 import { formatPrice } from '@/lib/format';
-import { AddToCartButton } from './AddToCartButton';
+import { LINKS } from '@/lib/links';
 import { Reveal } from './Reveal';
 
 type Filter = Category | 'all';
@@ -47,9 +47,30 @@ export function Menu() {
           </h2>
           <p className="menu-intro">
             Kebabs et sandwichs au four, burgers du classique au gourmet, crêpes,
-            tex-mex et milkshakes maison. Filtrez, ajoutez au panier, commandez
-            en quelques clics.
+            tex-mex et milkshakes maison. Pour commander, c'est par téléphone ou
+            directement sur place — en ligne uniquement via Uber Eats et Deliveroo.
           </p>
+        </div>
+
+        <div className="menu-order-info" role="note">
+          <div className="menu-order-info-main">
+            <span className="menu-order-info-eyebrow">Comment commander</span>
+            <p className="menu-order-info-text">
+              <strong>Par téléphone</strong> ou <strong>sur place</strong>. La
+              commande en ligne se fait uniquement via Uber Eats &amp; Deliveroo.
+            </p>
+          </div>
+          <div className="menu-order-info-actions">
+            <a href={LINKS.phoneHref} className="menu-order-info-phone" data-cursor-hover>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <span>{LINKS.phone}</span>
+            </a>
+            <span className="menu-order-info-place">
+              57 Rue de Paris, 77220 Torcy · Sur place
+            </span>
+          </div>
         </div>
 
         <div className="filters" id="filters">
@@ -131,7 +152,6 @@ function MenuCard({ product }: { product: Product }) {
               <span className="price-menu">Menu {formatPrice(product.priceMenu as number)}</span>
             )}
           </div>
-          <AddToCartButton product={product} />
         </div>
       </div>
     </article>
