@@ -1,37 +1,25 @@
 'use client';
 
-import { useEffect, useRef, type CSSProperties } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-const ROWS = 6;
-const COLS = 8;
-const WHITE_CELLS = [
-  { r: 0, c: 2 }, { r: 1, c: 6 }, { r: 2, c: 0 },
-  { r: 3, c: 4 }, { r: 4, c: 7 }, { r: 5, c: 3 },
-];
-const BLACK_CELLS = [
-  { r: 0, c: 5 }, { r: 2, c: 7 }, { r: 4, c: 1 }, { r: 5, c: 6 },
-];
 const HERO_IMG =
   'https://images.unsplash.com/photo-1530554764233-e79e16c91d08?w=1600&auto=format&fit=crop&q=80';
 
 export function Hero() {
-  const gridRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
     const ctx = gsap.context(() => {
-      const cells = grid.querySelectorAll('.grid-cell');
-      gsap.from(cells, {
-        rotateX: 90,
-        y: -100,
-        opacity: 0,
-        duration: 1.2,
-        ease: 'expo.out',
-        stagger: { each: 0.04, from: 'random' },
-      });
+      if (bgRef.current) {
+        gsap.from(bgRef.current, {
+          scale: 1.15,
+          opacity: 0,
+          duration: 1.6,
+          ease: 'expo.out',
+        });
+      }
       if (titleRef.current) {
         gsap.to(titleRef.current.querySelectorAll('.line > span'), {
           y: 0,
@@ -45,39 +33,13 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const cells: { key: string; className: string; style: CSSProperties }[] = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const isWhite = WHITE_CELLS.some((p) => p.r === r && p.c === c);
-      const isBlack = BLACK_CELLS.some((p) => p.r === r && p.c === c);
-      const style: CSSProperties = {
-        left: `${(c / COLS) * 100}%`,
-        top: `${(r / ROWS) * 100}%`,
-        width: `${100 / COLS}%`,
-        height: `${100 / ROWS}%`,
-      };
-      if (!isWhite && !isBlack) {
-        style.backgroundImage = `url(${HERO_IMG})`;
-        style.backgroundSize = `${COLS * 100}% ${ROWS * 100}%`;
-        style.backgroundPosition = `${(c / (COLS - 1)) * 100}% ${(r / (ROWS - 1)) * 100}%`;
-      }
-      cells.push({
-        key: `${r}-${c}`,
-        className: ['grid-cell', isWhite ? 'is-white' : '', isBlack ? 'is-black' : '']
-          .filter(Boolean)
-          .join(' '),
-        style,
-      });
-    }
-  }
-
   return (
     <section className="hero" id="hero">
-      <div className="hero-grid" ref={gridRef}>
-        {cells.map((cell) => (
-          <div key={cell.key} className={cell.className} style={cell.style} />
-        ))}
-      </div>
+      <div
+        className="hero-bg"
+        ref={bgRef}
+        style={{ backgroundImage: `url(${HERO_IMG})` }}
+      ></div>
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
