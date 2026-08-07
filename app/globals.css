@@ -765,6 +765,41 @@
     font-weight: 400;
   }
   .menu-card-price .price-now { color: #fff; }
+  .menu-card-price.has-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    line-height: 1.1;
+  }
+  .menu-card-price .price-main {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .menu-card-price .price-menu {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-mute);
+    letter-spacing: 0.02em;
+  }
+  .menu-card-note {
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+    color: var(--text-mute);
+    margin: -0.7rem 0 1.2rem;
+    line-height: 1.4;
+  }
+  .menu-cat-note {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.55;
+    padding: 0.95rem 1.2rem;
+    margin: 0 0 2.25rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    background: var(--card);
+  }
   .menu-card-tag.promo {
     left: auto;
     right: 1rem;

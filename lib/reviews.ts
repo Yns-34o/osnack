@@ -19,7 +19,7 @@ export const REVIEWS: Review[] = [
     name: 'Sophie L.',
     date: 'Mai 2025',
     rating: 5,
-    text: "On sent les produits frais. Le sandwich Le Torcy est une tuerie. Accueil sympa et propre. Je recommande à 100%.",
+    text: "On sent les produits frais. Le sandwich Grec est une tuerie. Accueil sympa et propre. Je recommande à 100%.",
   },
   {
     id: 'r3',

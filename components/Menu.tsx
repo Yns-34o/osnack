@@ -5,8 +5,10 @@ import Image from 'next/image';
 import {
   CATEGORIES,
   CATEGORY_LABELS,
+  CATEGORY_NOTES,
   countByCategory,
   effectivePrice,
+  hasMenuPrice,
   hasPromo,
   isAvailable,
   promoPercent,
@@ -44,8 +46,9 @@ export function Menu() {
             O&apos;Snack.
           </h2>
           <p className="menu-intro">
-            Des sandwichs cuits au four, des burgers signature et des accompagnements
-            faits maison. Filtrez, ajoutez au panier, commandez en quelques clics.
+            Kebabs et sandwichs au four, burgers du classique au gourmet, crêpes,
+            tex-mex et milkshakes maison. Filtrez, ajoutez au panier, commandez
+            en quelques clics.
           </p>
         </div>
 
@@ -61,6 +64,10 @@ export function Menu() {
           ))}
         </div>
 
+        {filter !== 'all' && CATEGORY_NOTES[filter] && (
+          <p className="menu-cat-note">{CATEGORY_NOTES[filter]}</p>
+        )}
+
         <div className="menu-grid" id="menuGrid">
           {filtered.map((item) => (
             <MenuCard key={item.id} product={item} />
@@ -74,6 +81,7 @@ export function Menu() {
 function MenuCard({ product }: { product: Product }) {
   const ref = useRef<HTMLDivElement>(null);
   const promo = hasPromo(product);
+  const hasMenu = hasMenuPrice(product);
 
   useEffect(() => {
     const el = ref.current;
@@ -110,12 +118,18 @@ function MenuCard({ product }: { product: Product }) {
       <div className="menu-card-body">
         <h3 className="menu-card-name">{product.name}</h3>
         <p className="menu-card-desc">{product.desc}</p>
+        {product.note && <p className="menu-card-note">{product.note}</p>}
         <div className="menu-card-footer">
-          <div className={`menu-card-price ${promo ? 'is-promo' : ''}`}>
-            {promo && <span className="price-old">{formatPrice(product.price)}</span>}
-            <span className="price-now">
-              {formatPrice(effectivePrice(product))}
+          <div className={`menu-card-price ${promo ? 'is-promo' : ''} ${hasMenu ? 'has-menu' : ''}`}>
+            <span className="price-main">
+              {promo && <span className="price-old">{formatPrice(product.price)}</span>}
+              <span className="price-now">
+                {formatPrice(effectivePrice(product))}
+              </span>
             </span>
+            {hasMenu && (
+              <span className="price-menu">Menu {formatPrice(product.priceMenu as number)}</span>
+            )}
           </div>
           <AddToCartButton product={product} />
         </div>

@@ -9,7 +9,15 @@ import {
 } from '@/lib/menu';
 import { createProduct, updateProduct } from '@/lib/products';
 
-const CATS: Category[] = ['sandwichs', 'burgers', 'sides', 'boissons'];
+const CATS: Category[] = [
+  'sandwichs',
+  'burgers',
+  'menus',
+  'crepes',
+  'texmex',
+  'desserts',
+  'boissons',
+];
 
 const FALLBACK_IMG =
   'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80';
@@ -24,11 +32,15 @@ export function ProductForm({ initial, onClose }: Props) {
   const [desc, setDesc] = useState(initial?.desc ?? '');
   const [category, setCategory] = useState<Category>(initial?.category ?? 'sandwichs');
   const [price, setPrice] = useState(initial ? String(initial.price) : '');
+  const [priceMenu, setPriceMenu] = useState(
+    initial?.priceMenu != null ? String(initial.priceMenu) : '',
+  );
   const [promoPrice, setPromoPrice] = useState(
     initial?.promoPrice != null ? String(initial.promoPrice) : '',
   );
   const [image, setImage] = useState(initial?.image ?? '');
   const [tag, setTag] = useState(initial?.tag ?? '');
+  const [note, setNote] = useState(initial?.note ?? '');
   const [available, setAvailable] = useState(initial?.available !== false);
   const [order, setOrder] = useState(initial?.order != null ? String(initial.order) : '');
   const [saving, setSaving] = useState(false);
@@ -48,14 +60,20 @@ export function ProductForm({ initial, onClose }: Props) {
     if (promo != null && (!Number.isFinite(promo) || promo < 0))
       return setError('Prix promo invalide.');
 
+    const menu = priceMenu.trim() === '' ? null : Number(priceMenu);
+    if (menu != null && (!Number.isFinite(menu) || menu < 0))
+      return setError('Prix menu invalide.');
+
     const data: Omit<Product, 'id'> = {
       name: name.trim(),
       desc: desc.trim(),
       category,
       price: Math.round(basePrice * 100) / 100,
+      priceMenu: menu != null ? Math.round(menu * 100) / 100 : null,
       promoPrice: promo != null ? Math.round(promo * 100) / 100 : null,
       image: image.trim() || FALLBACK_IMG,
       tag: tag.trim() || undefined,
+      note: note.trim() || undefined,
       available,
       order: order.trim() === '' ? undefined : Number(order),
     };
@@ -112,7 +130,7 @@ export function ProductForm({ initial, onClose }: Props) {
 
           <label className="admin-field">
             <span>Nom *</span>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Le Torcy" />
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Grec" />
           </label>
 
           <label className="admin-field">
@@ -152,6 +170,18 @@ export function ProductForm({ initial, onClose }: Props) {
 
           <div className="admin-row">
             <label className="admin-field">
+              <span>Prix menu (€)</span>
+              <input
+                type="number"
+                step="0.1"
+                min="0"
+                value={priceMenu}
+                onChange={(e) => setPriceMenu(e.target.value)}
+                placeholder="Formule menu (ex. 7,50)"
+              />
+            </label>
+
+            <label className="admin-field">
               <span>Prix promo (€)</span>
               <input
                 type="number"
@@ -162,10 +192,17 @@ export function ProductForm({ initial, onClose }: Props) {
                 placeholder="Laisser vide = pas de promo"
               />
             </label>
+          </div>
 
+          <div className="admin-row">
             <label className="admin-field">
               <span>Badge / tag</span>
-              <input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="Signature, Épicé…" />
+              <input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="Signature, Gourmet…" />
+            </label>
+
+            <label className="admin-field">
+              <span>Note</span>
+              <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Accompagné de sauce maison…" />
             </label>
           </div>
 
